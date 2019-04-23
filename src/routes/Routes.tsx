@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Home from './Home/Home';
+import Home from './Home';
 
 const Routes: FunctionComponent = () => (
   <Switch>
