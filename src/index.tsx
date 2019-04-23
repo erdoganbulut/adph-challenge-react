@@ -1,8 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { setConfig } from 'react-hot-loader';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+setConfig({
+  ignoreSFC: true,
+  pureRender: true,
+});
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
