@@ -1,14 +1,10 @@
 import React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import Props from './props.types';
+import StateI from '../../store/reducers/state.types';
 
-interface Props {
-  fetching: any;
-  dataset: any;
-  onRequestDataset: any;
-  error: any;
-}
-
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: StateI) => {
   return {
     fetching: state.fetching,
     dataset: state.dataset,
@@ -16,7 +12,7 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     onRequestDataset: () => dispatch({ type: 'API_CALL_REQUEST' }),
   };
