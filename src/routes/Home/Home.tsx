@@ -2,12 +2,28 @@ import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Props from './props.types';
-import StateI from '../../store/reducers/state.types';
+import StateI, { DatasetItemI } from '../../store/reducers/state.types';
+import DatasetItem from '../../components/DatasetItem/DatasetItem';
+
+const handleUnflattenArr = (arr: DatasetItemI[], parent?: any) => {
+  const out = [];
+  for (let i = 0; i < arr.length; i += 1) {
+    if (arr[i].parentID === parent) {
+      const element = arr[i];
+      const children = handleUnflattenArr(arr, arr[i].ID);
+      if (children.length) {
+        element.children = children;
+      }
+      out.push(arr[i]);
+    }
+  }
+  return out;
+};
 
 const mapStateToProps = (state: StateI) => {
   return {
     fetching: state.fetching,
-    dataset: state.dataset,
+    dataset: handleUnflattenArr(state.dataset),
     error: state.error,
   };
 };
@@ -22,9 +38,12 @@ const Home: React.FC<Props> = props => {
   const { fetching, dataset, onRequestDataset, error } = props;
   return (
     <div>
-      <h1>Home page!</h1>
-      <button onClick={onRequestDataset}>Request a dataset</button>
-      <p data-id={dataset} />
+      <button className="button is-link" onClick={onRequestDataset}>
+        Request a dataset
+      </button>
+      {dataset.map(item => {
+        return <DatasetItem key={item.ID} data={item} />;
+      })}
     </div>
   );
 };

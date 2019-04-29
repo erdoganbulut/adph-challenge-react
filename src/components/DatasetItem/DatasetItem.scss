@@ -1,0 +1,18 @@
+.DatasetItem {
+  margin: 32px;
+  .card-header {
+    cursor: pointer;
+    .card-header-title {
+      span {
+        margin-right: 10px;
+        font-weight: 300;
+        b {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  .card-content {
+    padding: 4px;
+  }
+}
