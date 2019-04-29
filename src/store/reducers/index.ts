@@ -2,7 +2,7 @@ import { API_CALL_REQUEST, API_CALL_SUCCESS, API_CALL_FAILURE } from '../actions
 import StateI from './state.types';
 
 const initialState: StateI = {
-  dataset: null,
+  dataset: [],
   fetching: false,
   error: null,
 };
@@ -14,7 +14,7 @@ const reducer = (state = initialState, action: any) => {
     case API_CALL_SUCCESS:
       return { ...state, fetching: false, dataset: action.dataset };
     case API_CALL_FAILURE:
-      return { ...state, fetching: false, dataset: null, error: action.error };
+      return { ...state, fetching: false, dataset: [], error: action.error };
     default:
       return state;
   }
