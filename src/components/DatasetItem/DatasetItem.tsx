@@ -7,7 +7,7 @@ interface Props {
   data: DatasetItemI;
 }
 
-const DatasetItem: React.FC<Props> = props => {
+const DatasetItem: React.FC<Props> = ({ data }) => {
   const [isActive, setIsActive] = useState(false);
   const handleChange = () => setIsActive(!isActive);
   return (
@@ -17,28 +17,28 @@ const DatasetItem: React.FC<Props> = props => {
           <span>
             <b>ID:</b>
             &nbsp;
-            {props.data.ID}
+            {data.ID}
           </span>
           <span>
             <b>Name:</b>
             &nbsp;
-            {props.data.Name}
+            {data.Name}
           </span>
           <span>
             <b>City:</b>
             &nbsp;
-            {props.data.City}
+            {data.City}
           </span>
           <span>
             <b>Phone:</b>
             &nbsp;
-            {props.data.Phone}
+            {data.Phone}
           </span>
-          {props.data.parentID && (
+          {data.parentID && (
             <span>
               <b>ParentID:</b>
               &nbsp;
-              {props.data.parentID}
+              {data.parentID}
             </span>
           )}
         </p>
@@ -46,9 +46,9 @@ const DatasetItem: React.FC<Props> = props => {
           <span className="icon" />
         </a>
       </header>
-      {props.data.children && isActive && (
+      {data.children && isActive && (
         <div className="card-content">
-          {props.data.children.map(item => {
+          {data.children.map(item => {
             return <DatasetItem key={item.ID} data={item} />;
           })}
         </div>
