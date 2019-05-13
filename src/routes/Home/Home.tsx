@@ -4,21 +4,7 @@ import { connect } from 'react-redux';
 import Props from './props.types';
 import StateI, { DatasetItemI } from '../../store/reducers/state.types';
 import DatasetItem from '../../components/DatasetItem/DatasetItem';
-
-const handleUnflattenArr = (arr: DatasetItemI[], parent?: any) => {
-  const out = [];
-  for (let i = 0; i < arr.length; i += 1) {
-    if (arr[i].parentID === parent) {
-      const element = arr[i];
-      const children = handleUnflattenArr(arr, arr[i].ID);
-      if (children.length) {
-        element.children = children;
-      }
-      out.push(arr[i]);
-    }
-  }
-  return out;
-};
+import handleUnflattenArr from '../../helpers/unflatten';
 
 const mapStateToProps = (state: StateI) => {
   return {
