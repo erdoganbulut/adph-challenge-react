@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Props from './props.types';
@@ -36,11 +36,12 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 
 const Home: React.FC<Props> = props => {
   const { fetching, dataset, onRequestDataset, error } = props;
+
+  useEffect(() => {
+    onRequestDataset();
+  }, []);
   return (
     <div>
-      <button className="button is-link" onClick={onRequestDataset}>
-        Request a dataset
-      </button>
       {dataset.map(item => {
         return <DatasetItem key={item.ID} data={item} />;
       })}
