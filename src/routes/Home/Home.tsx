@@ -26,7 +26,7 @@ const Home: React.FC<Props> = props => {
 
   useEffect(() => {
     onRequestDataset();
-  });
+  }, []);
   return (
     <div>
       {unflatdataset.map(item => {
