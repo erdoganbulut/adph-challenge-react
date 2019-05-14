@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import { DatasetItemI } from '../../store/reducers/state.types';
+import { DELETE_ITEM_FROM_DATASET } from '../../store/actions/actions.types';
 
 import './DatasetItem.scss';
 
 interface Props {
   data: DatasetItemI;
+  handleClickDelete: Function;
 }
 
-const DatasetItem: React.FC<Props> = ({ data }) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    handleClickDelete: (id: number) => dispatch({ type: DELETE_ITEM_FROM_DATASET, id }),
+  };
+};
+
+const DatasetItem: React.FC<Props> = ({ data, handleClickDelete }) => {
   const [isActive, setIsActive] = useState(false);
   const handleChange = () => setIsActive(!isActive);
   return (
@@ -42,20 +52,22 @@ const DatasetItem: React.FC<Props> = ({ data }) => {
             </span>
           )}
         </p>
-        <a href="http://google.com" className="card-header-icon" aria-label="more options">
-          <span className="icon" />
-        </a>
       </header>
       {data.children && isActive && (
         <div className="card-content">
           {data.children.map(item => {
-            return <DatasetItem key={item.ID} data={item} />;
+            return <DatasetItem key={item.ID} data={item} handleClickDelete={handleClickDelete} />;
           })}
         </div>
       )}
       {isActive && (
         <footer className="card-footer">
-          <a href="http://google.com" className="card-footer-item">
+          <a
+            onClick={() => {
+              handleClickDelete(data.ID);
+            }}
+            className="card-footer-item"
+          >
             Delete
           </a>
         </footer>
@@ -64,4 +76,7 @@ const DatasetItem: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default DatasetItem;
+export default connect(
+  null,
+  mapDispatchToProps,
+)(DatasetItem);
